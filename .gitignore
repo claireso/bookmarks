@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+
+#config
+config.js
+
+#uploads
+public/uploads/*
+
+#data
+data/*
