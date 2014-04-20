@@ -1,0 +1,23 @@
+//a.media(href="#{bookmark.url}", target="_blank")
+div.media__picture
+    a(href="#{bookmark.url}", target="_blank")
+        img.picture(src="/uploads/#{bookmark.cover}", width="150")
+
+div.media__text 
+    a.heading(href="#{bookmark.url}", target="_blank")
+        h2.heading-2 !{bookmark.title}
+    
+    -if (bookmark.note)
+        p.media__note= bookmark.note
+    
+    -if (bookmark.tags.length)
+        ul.list.list--tags
+            -each tag in bookmark.tags
+                li
+                  a.tag(href="/tag/#{encodeURIComponent(tag)}") #{tag}
+
+    ul.media__actions
+        li
+            a(href='/bookmark/#{bookmark._id}/edit') Edit 
+        li
+            a(href='/bookmark/#{bookmark._id}/delete') Delete

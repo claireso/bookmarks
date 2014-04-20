@@ -1,0 +1,32 @@
+form(method='POST', action='/bookmark/new', class='form form--bookmark')
+    h2.heading-1 Add a bookmark
+
+    -if (typeof(errors) != 'undefined' && typeof(errors.url) != 'undefined')
+      p.status.status--error= errors.url.type
+
+    -if (typeof(success) != 'undefined')
+      p.status.status--success= success
+
+    div.form__item
+      label(for="url") Url
+      input(id="url", type="url", placeholder='http://', name="url", class='form__field--text')
+
+    div.form__item
+      label(for="note") Note
+      textarea(id="note", name="note", class='form__field--text')
+
+    div.form__item
+      fieldset
+        legend.label Categories
+        - each category in categories
+          div.form__field--checkbox
+            input(id="cat-#{category}", type="checkbox", name="categories[]", value=category) 
+            label(for="cat-#{category}")= category
+        input(type="text", name="newcategory", placeholder="new category", class='form__field--text')
+
+    div.form__item
+      label Tags
+      input(type="text", name="tags", placeholder="tags separate by a comma", class='form__field--text')
+
+    div.form__submit.align-right
+      input(type="submit", value='Add', class='btn')

@@ -1,0 +1,45 @@
+.list--large
+    
+    .heading
+        display:block
+
+    > li
+        //background: $color-white
+        position: relative
+        padding: rem(20px) 0
+        + li
+            border-top:1px solid lighten($color-border-light, 5)
+            //margin-top:rem(10px)
+
+        &:hover
+            .media__actions
+                visibility: visible
+
+    .media__actions
+        position: absolute
+        top: rem(10px)
+        right: rem(10px)
+        visibility: hidden
+
+
+.list--tags
+    
+    
+    li
+        display: inline-block
+
+        + li
+            margin: 0 0 0 rem(5px)
+
+.list--filters 
+    padding: rem(10px)
+    margin: 0 0 rem(10px)
+    text-transform: capitalize
+
+    a
+        display: inline-block
+        padding:rem(2px) 0
+
+    .is-active
+        a
+            color: inherit

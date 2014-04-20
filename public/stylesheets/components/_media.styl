@@ -1,0 +1,38 @@
+.media
+    display:table
+    width:100%
+    table-layout:fixed
+
+    > div
+        display:table-cell
+        vertical-align:top
+
+    .list--tags
+        margin:rem(10px) 0 0
+
+.media__picture
+    padding:0 rem(15px) 0 0
+    width:rem(165px)
+
+.media__text
+    padding: rem(5px) rem(100px) rem(15px) 0
+
+.media__note
+    font-size: rem(14px)
+    margin: rem(5px) 0 0
+    
+
+.media__actions
+    font-size: rem(13px)
+    
+    li
+        display: inline-block
+
+        + li 
+            margin-left:rem(5px)
+
+    a
+        color: $color-border
+
+        &:hover
+            color: inherit

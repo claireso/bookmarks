@@ -1,0 +1,15 @@
+form(method='POST', action='/login', class='form form--login')
+      
+  -if (typeof(errors) != 'undefined')
+      p.status.status--error= errors
+      
+  div.form__item
+    label(for='email') Email
+    input(type='email', id='email', name='email', class='form__field--text')
+
+  div.form__item
+    label(for='password') Password
+    input(type='password', id='password', name='password', class='form__field--text')
+
+  div.form__submit.align-right
+    input(type='submit', class='btn', value='Send')

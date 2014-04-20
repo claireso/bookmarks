@@ -1,0 +1,64 @@
+@import 'variables';
+@import 'functions/rem';
+@import 'mixins/*';
+
+
+*,
+*:after,
+*:before
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+
+html,
+body 
+    height:100%
+
+body
+    margin: 0
+    padding: 0
+    font: $base-font 'Open Sans', sans-serif
+    background: $color-bg
+    color: $color-font
+
+a
+    color: $color-primary
+    text-decoration: none
+
+    &:hover,
+    &:focus
+        color: $color-primary-hover
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.align-right
+    text-align: right
+
+ul
+    list-style-type:none
+    margin:0
+    padding:0
+
+.picture
+    display: block
+
+section
+    + section
+        margin: rem(60px) 0 0
+        //padding: rem(30px) 0 0
+        //border-top:1px solid $color-border-light
+
+.pull-right
+    float: right
+
+
+@import 'layout/_header';
+@import 'layout/_app-grid';
+@import 'components/*';

@@ -1,0 +1,13 @@
+extends ../layout-disconnected
+
+block content
+
+  div.box--table
+    div
+      div.box.box--white.box--middle
+        h1.heading= title
+        
+        include form/login
+
+        div 
+          a(href="forgotten-password") Mot de passe oublié ?

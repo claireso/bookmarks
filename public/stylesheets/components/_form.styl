@@ -1,0 +1,55 @@
+.form
+    label
+        font-size: rem(16)
+        display: block
+        margin: 0 0 rem(10)
+
+    .heading-1
+        text-transform: none
+
+fieldset
+    border: none
+    margin: 0
+    padding: 0
+
+    .label
+        margin:0 0 rem(8px)
+
+    .form__field--checkbox
+        margin: 0 0 0 rem(10px)
+
+
+.form__item
+    margin: 0 0 rem(20)
+        
+
+.form__field--text 
+    appearance(none)
+    padding: rem(10)
+    border: 1px solid $color-border
+    font: rem(12) 'Open Sans', sans-serif
+    display: block
+    width: 100%
+    outline: none
+
+    &:focus
+        border-color: $color-border-focus
+
+.form__submit
+    input
+        appearance(none)
+        border:none
+        margin: 0
+        cursor: pointer
+        outline: none
+
+.form__field--checkbox
+    input 
+        float: left
+        margin: rem(5px)
+
+.form--login
+    margin: 0 0 rem(20)
+
+.form--bookmark
+    max-width: rem(400px)

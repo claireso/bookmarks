@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  div.toolbar.clearfix
+    a.pull-right.btn(href="/bookmark/new") New bookmark
+    
+  h1.heading-1= title
+
+  -if (bookmarks.length)
+    ul.list.list--large
+      - each bookmark in bookmarks
+        li.media
+          include _item
+
+          
