@@ -8,7 +8,9 @@ var EMAIL,
     stdin = process.stdin, 
     stdout = process.stdout;
 
-mongoose.connect('mongodb://localhost/' + config.db.name);
+var env = process.argv.slice(2)[0] || 'development';
+
+mongoose.connect(config.db[env].uri);
 
 function ask(param) {
  

@@ -50,7 +50,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     
-    mongoose.connect('mongodb://localhost/' + config.db.name);
+    mongoose.connect(config.db.development.uri);
 
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -62,7 +62,7 @@ if (app.get('env') === 'development') {
 }
 
 if (app.get('env') === 'production') {
-    mongoose.connect('mongodb://localhost/' + config.db.name);
+    mongoose.connect(config.db.production.uri);
 }
 
 // production error handler
