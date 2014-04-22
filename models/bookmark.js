@@ -208,7 +208,7 @@ bookmarkSchema.pre('save', function(next){
 bookmarkSchema.post('remove', function(bookmark) {
     fs.unlink('public/uploads/' + bookmark.cover, function (err) {
       if (err) {
-        console.log(error);
+        console.log(err);
       }
     });
 });
