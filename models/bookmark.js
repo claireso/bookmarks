@@ -247,7 +247,7 @@ bookmarkSchema.pre('save', function(next){
                                         next();    
                                     }
 
-                                }, 200);
+                                }, 900);
                             })
                         });
                     });
