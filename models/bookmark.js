@@ -12,8 +12,7 @@ var mongoose = require('mongoose'),
     FormData = require('form-data'),
     config = require('../config');
 
-var UPLOADFOLDER = 'public/uploads/'
-    ENV = config.CURRENTENV;
+var UPLOADFOLDER = 'public/uploads/';
 
 var bookmarkSchema = mongoose.Schema({
     url        : String,
@@ -35,7 +34,7 @@ bookmarkSchema.virtual('coverpath')
     .get(function() { 
         var cp;
 
-        if (config.upload && config.isproduction) {
+        if (config.upload) {
           cp = config.upload.remote + 'uploads/'
         } else {
             cp = '/uploads/'
@@ -221,7 +220,7 @@ bookmarkSchema.pre('save', function(next){
 
                                 setTimeout(function(){
                                     //timeout for draw the preview
-                                    if (config.upload && config.isproduction) {
+                                    if (config.upload) {
                                         //transfert file on a remote server
                                         var img = path.join(__dirname + '/../' + UPLOADFOLDER, filename),
                                             remote = config.upload.remote + config.upload.script,
