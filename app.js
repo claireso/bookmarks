@@ -63,6 +63,7 @@ if (app.get('env') === 'development') {
 
 if (app.get('env') === 'production') {
     mongoose.connect(config.db.production.uri);
+    config.isproduction = true;
 }
 
 // production error handler

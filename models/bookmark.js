@@ -5,8 +5,15 @@ var mongoose = require('mongoose'),
     http = require('http'),
     url = require('url'),
     phantom = require('phantom'),
-    fs = require('fs');
+    fs = require('fs'),
 
+    request = require('request'),
+    path = require('path'),
+    FormData = require('form-data'),
+    config = require('../config');
+
+var UPLOADFOLDER = 'public/uploads/'
+    ENV = config.CURRENTENV;
 
 var bookmarkSchema = mongoose.Schema({
     url        : String,
@@ -20,6 +27,26 @@ var bookmarkSchema = mongoose.Schema({
     created_at : {type   : Date, default : Date.now},
     updated_at : Date
 });
+
+/*
+    VIRTUAL PATH
+*/
+bookmarkSchema.virtual('coverpath')
+    .get(function() { 
+        var cp;
+
+        if (config.upload && config.isproduction) {
+          cp = config.upload.remote + 'uploads/'
+        } else {
+            cp = '/uploads/'
+        }
+
+        return cp;
+     });
+
+/*
+    STATICS METHOD
+*/
 
 bookmarkSchema.statics.getCategories = function getCategories(callback) {
 
@@ -121,6 +148,10 @@ bookmarkSchema.statics.getHomeList = function getHomeList(categories, callback){
         }.bind(this));
 }
 
+/*
+    HOOKS
+*/
+
 bookmarkSchema.pre('save', function(next){
 
     var self = this,
@@ -152,13 +183,14 @@ bookmarkSchema.pre('save', function(next){
                 }                
             });
         }
+
         var book_url = url.parse(this.url),
             options = {
                 host: book_url.host,
                 path: book_url.path
             };
 
-        var request = http.request(options, function (res) {
+        var httpRequest = http.request(options, function (res) {
             var data = '';
             
             res.on('data', function (chunk) {
@@ -168,8 +200,10 @@ bookmarkSchema.pre('save', function(next){
             res.on('end', function () {
                 var titleReg = /<title>(.*)<\/title>/,
                     title = data.match(titleReg);
+
                     self.title = (title && title.length) ? title[1] : self.url;
                     
+                    //@todo
                     //create screenshot
                     phantom.create(function(ph){
                         ph.createPage(function(page){
@@ -179,28 +213,55 @@ bookmarkSchema.pre('save', function(next){
                             page.open(self.url, function(){
                                 
                                 var filename = self._id+'.png';
-                                page.render('public/uploads/'+filename);
+
+                                page.render( UPLOADFOLDER + filename);
                                 ph.exit();
                                 self.cover = filename;
 
+
                                 setTimeout(function(){
                                     //timeout for draw the preview
-                                    next();    
+                                    if (config.upload && config.isproduction) {
+                                        //transfert file on a remote server
+                                        var img = path.join(__dirname + '/../' + UPLOADFOLDER, filename),
+                                            remote = config.upload.remote + config.upload.script,
+                                            key = config.upload.key,
+                                            form;
+
+                                        form = new FormData();
+                                        form.append('origin', key);
+                                        form.append('file', fs.createReadStream(img));
+
+                                        form.getLength(function(err,length){
+                                            var r = request.post(remote, { headers: { 'content-length': length } }, function(err, res, body){ 
+                                                if (err) {
+                                                    return console.error('upload failed:', err);
+                                                }
+
+                                                next();
+                                            });  
+
+                                            r._form = form;                                 
+                                        });
+
+                                    } else {
+                                        next();    
+                                    }
+
                                 }, 200);
-                                
                             })
                         });
                     });
             });
         });
 
-        request.on('error', function (e) {
+        httpRequest.on('error', function (e) {
             errors = errors || new ValidationError(this);
             errors.errors = 'error';
             next(errors);
         });
 
-        request.end();
+        httpRequest.end();
     }
 
 });

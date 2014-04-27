@@ -1,7 +1,8 @@
-//a.media(href="#{bookmark.url}", target="_blank")
+p= bookmark.coverpath
+
 div.media__picture
     a(href="#{bookmark.url}", target="_blank")
-        img.picture(src="/uploads/#{bookmark.cover}", width="150")
+        img.picture(src="#{bookmark.coverpath}#{bookmark.cover}", width="150")
 
 div.media__text 
     a.heading(href="#{bookmark.url}", target="_blank")
