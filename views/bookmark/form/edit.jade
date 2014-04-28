@@ -12,7 +12,7 @@ block content
           p.status.status--success= status.msg
 
       div.form__item
-        img.picture(src="/uploads/#{bookmark.cover}", width="200")
+        img.picture(src="#{bookmark.coverpath}#{bookmark.cover}", width="200")
 
       div.form__item
         label(for="title") Title
