@@ -100,6 +100,21 @@ bookmarkSchema.statics.prepareData = function prepareData(req){
 
     if(utils.validatePresenceOf(req.body.tags)){
         data.tags = req.body.tags.split(',');
+        //remove whitespace
+        if (data.tags.length) {
+            data.tags.forEach(function(tag, index){
+                var  t = utils.trim(tag);
+
+                if (utils.validatePresenceOf(t)) {
+                    data.tags[index] = t;    
+                } else {
+                    //remove tag of the list
+                    data.tags.splice(index, 1);
+                }                
+            });
+        }
+    } else {
+        data.tags = [];
     }
 
     if(utils.validatePresenceOf(req.body.url)){
@@ -166,22 +181,10 @@ bookmarkSchema.pre('save', function(next){
     }
 
     if(errors){
+
         next(errors)
+
     } else {
-
-        //remove whitespace
-        if(this.tags.length){
-            this.tags.forEach(function(tag, index){
-                var  t = utils.trim(tag);
-
-                if (utils.validatePresenceOf(t)) {
-                    self.tags[index] = t;    
-                } else {
-                    //remove tag of the list
-                    self.tags.splice(index, 1);
-                }                
-            });
-        }
 
         var book_url = url.parse(this.url),
             options = {
