@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
     url = require('url'),
     phantom = require('phantom'),
     fs = require('fs'),
+    exec = require('child_process').exec,
 
     request = require('request'),
     path = require('path'),
@@ -214,7 +215,8 @@ bookmarkSchema.pre('save', function(next){
 
                             page.open(self.url, function(){
                                 
-                                var filename = self._id+'.png';
+                                var filename = self._id+'.png',
+                                    img = path.join(__dirname + '/../' + UPLOADFOLDER, filename);
 
                                 page.render( UPLOADFOLDER + filename);
                                 ph.exit();
@@ -223,32 +225,41 @@ bookmarkSchema.pre('save', function(next){
 
                                 setTimeout(function(){
                                     //timeout for draw the preview
-                                    if (config.upload) {
-                                        //transfert file on a remote server
-                                        var img = path.join(__dirname + '/../' + UPLOADFOLDER, filename),
-                                            remote = config.upload.remote + config.upload.script,
-                                            key = config.upload.key,
-                                            form;
 
-                                        form = new FormData();
-                                        form.append('origin', key);
-                                        form.append('file', fs.createReadStream(img));
+                                    //resize image
+                                    //convert site.png -resize 640x400 site.png
+                                    exec('convert ' + img + ' -resize 640x400 ' + img, function (error, stdout, stderr) {
+                                        
+                                        if (error !== null) {
+                                          console.log('exec error: ' + error);
+                                        }
 
-                                        form.getLength(function(err,length){
-                                            var r = request.post(remote, { headers: { 'content-length': length } }, function(err, res, body){ 
-                                                if (err) {
-                                                    return console.error('upload failed:', err);
-                                                }
+                                        if (config.upload) {
+                                            //transfert file on a remote server
+                                            var remote = config.upload.remote + config.upload.script,
+                                                key = config.upload.key,
+                                                form;
 
-                                                next();
-                                            });  
+                                            form = new FormData();
+                                            form.append('origin', key);
+                                            form.append('file', fs.createReadStream(img));
 
-                                            r._form = form;                                 
-                                        });
+                                            form.getLength(function(err,length){
+                                                var r = request.post(remote, { headers: { 'content-length': length } }, function(err, res, body){ 
+                                                    if (err) {
+                                                        return console.error('upload failed:', err);
+                                                    }
 
-                                    } else {
-                                        next();    
-                                    }
+                                                    next();
+                                                });  
+
+                                                r._form = form;                                 
+                                            });
+
+                                        } else {
+                                            next();    
+                                        }
+                                    });
 
                                 }, 900);
                             })
