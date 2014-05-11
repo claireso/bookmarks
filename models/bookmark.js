@@ -200,7 +200,7 @@ bookmarkSchema.pre('save', function(next){
             });
             
             res.on('end', function () {
-                var titleReg = /<title>(.*)<\/title>/,
+                var titleReg = /<title>(.*?)<\/title>/,
                     title = data.match(titleReg);
 
                     self.title = (title && title.length) ? title[1] : self.url;
