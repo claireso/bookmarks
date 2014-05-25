@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="96px" height="96px" viewBox="0 0 96 96" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.2 (7799) - http://www.bohemiancoding.com/sketch -->
+    <title>bookmarks</title>
+    <description>Created with Sketch.</description>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Oval-2-+-Star-1" sketch:type="MSLayerGroup">
+            <circle id="Oval-2" fill="#3498DB" sketch:type="MSShapeGroup" cx="48" cy="48" r="48"></circle>
+            <polygon id="Star-1" fill="#FFFFFF" sketch:type="MSShapeGroup" points="49 62 32.5420129 70.6524758 35.6852088 52.3262379 22.3704175 39.3475242 40.7710065 36.6737621 49 20 57.2289935 36.6737621 75.6295825 39.3475242 62.3147912 52.3262379 65.4579871 70.6524758 "></polygon>
+        </g>
+    </g>
+</svg>

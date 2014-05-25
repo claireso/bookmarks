@@ -7,17 +7,11 @@ html
     link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans:400,700')
   body
 
-    //- header#header
-    //-   a(href="/") Bookmarks
-
-    //-   -if (typeof(user) == 'undefined')
-    //-     a.pull-right(href="/logout", class="logout") Signout
-    //-     a.pull-right.btn(href="bookmark/new") New bookmark
-
     main.app
       -if (typeof(categories) !== 'undefined')
         div.app__sidebar
-          a.logo(href="/") Bookmarks
+          a.logo(href="/") 
+            img(src="/images/bookmarks.svg", alt="Bookmarks", class="logo-svg", width="50")
           ul.list--filters
             - each category in categories
               - if (category === activeCategory )

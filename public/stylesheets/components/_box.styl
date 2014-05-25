@@ -12,6 +12,19 @@
     background: $color-white
     border: 1px solid $color-border
     margin: 0 auto
+    position relative;
+
+    .logo-svg {
+        position: absolute;
+        left:50%;
+        top:0;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+.box--logo {
+    padding-top: rem(40)
+}
 
 .box--middle
     max-width:400px
