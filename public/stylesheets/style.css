@@ -234,6 +234,12 @@ fieldset .form__field--checkbox {
   padding: 0 0.9375rem 0 0;
   width: 10.3125rem;
 }
+.media__picture a {
+  display: block;
+}
+.media__picture a:hover {
+  opacity: 0.8;
+}
 .media__text {
   padding: 0.3125rem 6.25rem 0.9375rem 0;
 }

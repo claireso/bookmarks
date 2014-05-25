@@ -1,5 +1,5 @@
 form(method='POST', action='/bookmark/new', class='form form--bookmark')
-    h2.heading-1 Add a bookmark
+    h2.heading-1 #{title}
 
     -if (typeof(errors) != 'undefined' && typeof(errors.url) != 'undefined')
       p.status.status--error= errors.url.type

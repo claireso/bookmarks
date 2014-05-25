@@ -11,7 +11,7 @@ var getCategories = middleware.getCategories;
 /* GET form new*/
 router.get('/new', isLogged, getCategories, function(req, res) {
     var data = {
-        title : 'Add a bookmarks'
+        title : 'Add a new bookmark'
     };
 
     if (req.session.flashError) {
