@@ -175,7 +175,8 @@ fieldset .form__field--checkbox {
   margin: 0 0 1.25rem;
 }
 .form--bookmark {
-  max-width: 25rem;
+  max-width: 40%;
+  min-width: 25rem;
 }
 .list--large .heading {
   display: block;
