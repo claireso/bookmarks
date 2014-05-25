@@ -15,6 +15,7 @@ var routes = require('./routes/index');
 var bookmark = require('./routes/bookmarks');
 var category = require('./routes/categories');
 var tag = require('./routes/tags');
+var search = require('./routes/search');
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use('/', routes);
 app.use('/bookmark', bookmark);
 app.use('/category', category);
 app.use('/tag', tag);
+app.use('/search', search);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

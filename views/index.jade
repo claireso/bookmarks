@@ -2,8 +2,7 @@ extends layout
 
 block content
 
-  div.toolbar.clearfix
-    a.pull-right.btn(href="/bookmark/new") New bookmark
+  include toolbar/toolbar
 
   -if (typeof(bookmarks) != 'undefined' && bookmarks.length)
     h1.heading-1 Latest

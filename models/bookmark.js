@@ -24,12 +24,19 @@ var bookmarkSchema = mongoose.Schema({
     updated_at : Date
 });
 
+
+/*
+    INDEXES FOR SEARCH
+*/
+bookmarkSchema.index({ "title": "text", "note" : "text", "tags" : "text" });
+
 /*
     VIRTUAL PATH
 */
 bookmarkSchema.virtual('coverpath').get(function() { 
     return '/uploads/';
 });
+
 
 /*
     STATICS METHOD
@@ -109,9 +116,7 @@ bookmarkSchema.statics.prepareData = function prepareData(req){
         data.url = req.body.url;
     }
 
-    if(utils.validatePresenceOf(req.body.note)){
-        data.note = req.body.note;
-    }
+    data.note = req.body.note || ''; 
 
     if(utils.validatePresenceOf(req.body.title)){
         data.title = req.body.title;
@@ -266,5 +271,11 @@ bookmarkSchema.post('remove', function(bookmark) {
 });
 
 var Bookmark = mongoose.model('Bookmark', bookmarkSchema);
+
+Bookmark.ensureIndexes(function(err){
+    if (err) {
+        console.log('err ' + err);
+    }
+})
 
 module.exports = Bookmark;
