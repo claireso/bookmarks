@@ -28,24 +28,15 @@ router.get('/', isLogged, getCategories, function(req, res) {
         data.success = success;
     }
 
-    //Bookmark.getCategories(function(categories){
-        //data.categories = categories;
+    if (!categories.length) {
+        res.render('index', data);   
+    } else {
+        Bookmark.getLatest(15, function(bookmarks){
+            data.bookmarks = bookmarks;
+            res.render('index', data);
+        });
+    }
 
-        if (!categories.length) {
-            res.render('index', data);   
-        } else {
-            Bookmark.getHomeList(categories, function(list){
-                data.list = list;
-                res.render('index', data);
-
-                /*Bookmark.getTags(function(tags){
-                    data.tags = tags;
-                    res.render('index', data);
-                });*/
-            });
-        }
-        
-    //});
 });
 
 /* GET Login. */

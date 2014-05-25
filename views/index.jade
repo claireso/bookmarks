@@ -5,18 +5,12 @@ block content
   div.toolbar.clearfix
     a.pull-right.btn(href="/bookmark/new") New bookmark
 
-  -if (typeof(list) != 'undefined' && list.length)
-
-    -each items in list
-      section
-        h1.heading-1.heading-ib= items.category
-        a.more(href="/category/#{items.category}") View all
-
-        -if (items.bookmarks.length)
-          ul.list.list--large
-            - each bookmark in items.bookmarks
-              li.media
-                include bookmark/_item
+  -if (typeof(bookmarks) != 'undefined' && bookmarks.length)
+    h1.heading-1 Latest
+    ul.list.list--large
+      -each bookmark in bookmarks
+        li.media
+          include bookmark/_item
 
   - else
     section

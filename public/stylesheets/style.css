@@ -187,6 +187,9 @@ fieldset .form__field--checkbox {
 .list--large > li + li {
   border-top: 1px solid #e7ebee;
 }
+.list--large > li:first-child {
+  padding-top: 0.625rem;
+}
 .list--large > li:hover .media__actions {
   visibility: visible;
 }

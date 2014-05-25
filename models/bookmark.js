@@ -150,6 +150,20 @@ bookmarkSchema.statics.getHomeList = function getHomeList(categories, callback){
         }.bind(this));
 }
 
+bookmarkSchema.statics.getLatest = function getLatest(count, callback){
+    this.find()
+        .sort({
+            'created_at': -1
+        })
+        .limit(count)
+        .exec(function(err, bookmarks){
+            if (err) {
+                console.log('err ' + err )
+            }
+            callback(bookmarks);
+        });
+}
+
 /*
     HOOKS
 */

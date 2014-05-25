@@ -4,12 +4,15 @@
         display:block
 
     > li
-        //background: $color-white
         position: relative
         padding: rem(20px) 0
+        
         + li
             border-top:1px solid lighten($color-border-light, 5)
-            //margin-top:rem(10px)
+
+        &:first-child {
+            padding-top:rem(10px)
+        }
 
         &:hover
             .media__actions
