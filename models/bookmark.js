@@ -224,27 +224,29 @@ bookmarkSchema.pre('save', function(next){
                                 var filename = self._id+'.png',
                                     img = path.join(__dirname + '/../' + UPLOADFOLDER, filename);
 
-                                page.render( UPLOADFOLDER + filename);
-                                ph.exit();
-                                self.cover = filename;
-
-
                                 setTimeout(function(){
-                                    //timeout for draw the preview
+                                    page.render( UPLOADFOLDER + filename);
+                                    ph.exit();
+                                    self.cover = filename;
 
-                                    //resize image
-                                    //convert site.png -resize 640x400 site.png
-                                    exec('convert ' + img + ' -resize 640x400 ' + img, function (error, stdout, stderr) {
-                                        
-                                        if (error !== null) {
-                                          console.log('exec error: ' + error);
-                                        }
-                                        
-                                        next();    
-                                        
-                                    });
+                                    setTimeout(function(){
+                                        //timeout for draw the preview
 
-                                }, 900);
+                                        //resize image
+                                        //convert site.png -resize 640x400 site.png
+                                        exec('convert ' + img + ' -resize 640x400 ' + img, function (error, stdout, stderr) {
+                                            
+                                            if (error !== null) {
+                                              console.log('exec error: ' + error);
+                                            }
+                                            
+                                            next();    
+                                            
+                                        });
+
+                                    }, 900);
+                                }, 1000);
+                                
                             })
                         });
                     });
