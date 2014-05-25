@@ -7,11 +7,7 @@ var mongoose = require('mongoose'),
     phantom = require('phantom'),
     fs = require('fs'),
     exec = require('child_process').exec,
-
-    request = require('request'),
-    path = require('path'),
-    FormData = require('form-data'),
-    config = require('../config');
+    path = require('path');
 
 var UPLOADFOLDER = 'public/uploads/';
 
@@ -31,18 +27,9 @@ var bookmarkSchema = mongoose.Schema({
 /*
     VIRTUAL PATH
 */
-bookmarkSchema.virtual('coverpath')
-    .get(function() { 
-        var cp;
-
-        if (config.upload) {
-          cp = config.upload.remote + 'uploads/'
-        } else {
-            cp = '/uploads/'
-        }
-
-        return cp;
-     });
+bookmarkSchema.virtual('coverpath').get(function() { 
+    return '/uploads/';
+});
 
 /*
     STATICS METHOD
@@ -233,32 +220,9 @@ bookmarkSchema.pre('save', function(next){
                                         if (error !== null) {
                                           console.log('exec error: ' + error);
                                         }
-
-                                        if (config.upload) {
-                                            //transfert file on a remote server
-                                            var remote = config.upload.remote + config.upload.script,
-                                                key = config.upload.key,
-                                                form;
-
-                                            form = new FormData();
-                                            form.append('origin', key);
-                                            form.append('file', fs.createReadStream(img));
-
-                                            form.getLength(function(err,length){
-                                                var r = request.post(remote, { headers: { 'content-length': length } }, function(err, res, body){ 
-                                                    if (err) {
-                                                        return console.error('upload failed:', err);
-                                                    }
-
-                                                    next();
-                                                });  
-
-                                                r._form = form;                                 
-                                            });
-
-                                        } else {
-                                            next();    
-                                        }
+                                        
+                                        next();    
+                                        
                                     });
 
                                 }, 900);
