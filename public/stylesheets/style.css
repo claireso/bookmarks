@@ -144,6 +144,9 @@ section + section {
 .form .heading-1 {
   text-transform: none;
 }
+.form textarea {
+  resize: vertical;
+}
 fieldset {
   border: none;
   margin: 0;
