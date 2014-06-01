@@ -58,7 +58,7 @@ module.exports = config;
 * **mail** : nodemailer is used to send mail if you forgot your password account. You need to add a SMTP configuration. Check the documentation [here](https://github.com/andris9/Nodemailer).    
 
 
- Create your account
+Create your account
 ---------------------
 After the configuration of your application and starting your mongo server, you need to create your account. For this enter this command line:
 ```
