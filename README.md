@@ -7,7 +7,9 @@ Today, this application is still in beta.
 Install it
 ---------------------
 Clone the project:
-`git clone https://github.com/claireso/bookmarks.git`
+```
+git clone https://github.com/claireso/bookmarks.git
+```
 
 Install the dependencies
 ```
@@ -71,4 +73,8 @@ Then, you can start your application :
 npm start
 ```
 
+Roadmap
+---------------------
+* Adding mobile compatibility
+* Adding pagination to the lists
 
