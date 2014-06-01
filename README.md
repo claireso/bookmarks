@@ -1,8 +1,9 @@
 Bookmarks
 ====================
 Bookmarks is a self hosted application to store your bookmarks.
-It is build with Express 4 and MongoDB.
-Today, this application is still in beta.
+It is build with Express 4 and MongoDB. 
+PhantomJs is used to take screencapture of your bookmarks. You need to install it on your sever.
+This application is still in beta.
 
 Install it
 ---------------------
