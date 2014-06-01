@@ -5,8 +5,8 @@ var Bookmark = require('../../models/bookmark');
  */
 
 //isLogged
-exports.isLogged = function(req, res, next){
-    if(!req.session.user){
+exports.isLogged = function (req, res, next) {
+    if (!req.session.user) {
         res.redirect('/login');
     } else {
         next();
@@ -14,10 +14,10 @@ exports.isLogged = function(req, res, next){
 };
 
 //getCategories
-exports.getCategories = function(req, res, next){
-    res.locals.activeCategory = req.params.category
+exports.getCategories = function (req, res, next) {
+    res.locals.activeCategory = req.params.category;
 
-    Bookmark.getCategories(function(categories){
+    Bookmark.getCategories(function (categories) {
         res.locals.categories = categories;
         next();
     });

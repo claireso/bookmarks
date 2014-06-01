@@ -7,98 +7,74 @@ var mongoose = require('mongoose'),
     phantom = require('phantom'),
     fs = require('fs'),
     exec = require('child_process').exec,
-    path = require('path');
+    path = require('path'),
 
-var UPLOADFOLDER = 'public/uploads/';
+    UPLOADFOLDER = 'public/uploads/',
+    bookmarkSchema;
 
-var bookmarkSchema = mongoose.Schema({
-    url        : String,
-    title      : String,
-    cover      : String,
-    note      : String,
+bookmarkSchema = mongoose.Schema({
+    url: String,
+    title: String,
+    cover: String,
+    note: String,
 
-    categories : { type: Array, index: true, default: ['other'] },
-    tags       : { type: Array, index: true },
+    categories: { type: Array, index: true, default: [ 'other' ] },
+    tags: { type: Array, index: true },
 
-    created_at : {type   : Date, default : Date.now},
-    updated_at : Date
+    created_at: { type: Date, default: Date.now },
+    updated_at: Date
 });
-
 
 /*
     INDEXES FOR SEARCH
 */
-bookmarkSchema.index({ "title": "text", "note" : "text", "tags" : "text" });
+bookmarkSchema.index({ "title": "text", "note": "text", "tags": "text" });
 
 /*
     VIRTUAL PATH
 */
-bookmarkSchema.virtual('coverpath').get(function() { 
+bookmarkSchema.virtual('coverpath').get(function () { 
     return '/uploads/';
 });
-
 
 /*
     STATICS METHOD
 */
 
-bookmarkSchema.statics.getCategories = function getCategories(callback) {
+bookmarkSchema.statics.getCategories = function getCategories (callback) {
 
-    // this.mapReduce({
-    //     map : function map(){
-
-    //         if (!this.categories) {
-    //             return;
-    //         }
-
-    //         for (index in this.categories) {
-    //             emit(this.categories[index], 1);
-    //         }
-    //     },
-    //     reduce : function reduce(previous, current){
-            
-    //         var count = 0;
-
-    //         for (index in current) {
-    //             count += current[index];
-    //         }
-
-    //         return count;
-    //     }
-    // }, callback);
-
-    this.distinct("categories", function(err, categories){
+    this.distinct("categories", function (err, categories) {
         callback(categories.sort());
     });
 
 };
 
-bookmarkSchema.statics.getTags = function getTags(callback) {
+bookmarkSchema.statics.getTags = function getTags (callback) {
 
-    this.distinct("tags", function(err, tags){
+    this.distinct("tags", function (err, tags) {
         callback(tags.sort());
     });
 
 };
 
-bookmarkSchema.statics.prepareData = function prepareData(req){
+bookmarkSchema.statics.prepareData = function prepareData (req) {
     var data = {};
 
-    if(utils.validatePresenceOf(req.body.categories)){
+    if (utils.validatePresenceOf(req.body.categories)) {
         data.categories = req.body.categories;
     }
 
-    if(utils.validatePresenceOf(req.body.newcategory)){
+    if (utils.validatePresenceOf(req.body.newcategory)) {
         data.categories = data.categories || [];
         data.categories.push(req.body.newcategory);
     }
 
-    if(utils.validatePresenceOf(req.body.tags)){
+    if (utils.validatePresenceOf(req.body.tags)) {
         data.tags = req.body.tags.split(',');
         //remove whitespace
         if (data.tags.length) {
-            data.tags.forEach(function(tag, index){
-                var  t = utils.trim(tag);
+            data.tags.forEach(function (tag, index) {
+                var t = utils.trim(tag);
 
                 if (utils.validatePresenceOf(t)) {
                     data.tags[index] = t;    
@@ -112,68 +88,73 @@ bookmarkSchema.statics.prepareData = function prepareData(req){
         data.tags = [];
     }
 
-    if(utils.validatePresenceOf(req.body.url)){
+    if (utils.validatePresenceOf(req.body.url)) {
         data.url = req.body.url;
     }
 
     data.note = req.body.note || ''; 
 
-    if(utils.validatePresenceOf(req.body.title)){
+    if (utils.validatePresenceOf(req.body.title)) {
         data.title = req.body.title;
     }
 
     return data;
+
 };
 
-bookmarkSchema.statics.getHomeList = function getHomeList(categories, callback){
+bookmarkSchema.statics.getHomeList = function getHomeList (categories, callback) {
     var count = 0,
         total = categories.length,
         data = [];
 
-        categories.forEach(function(category, index){
-            
-            this.find({categories:category})
-                .sort({
-                    'created_at': -1
-                })
-                .limit(5)
-                .exec(function(err, bookmarks){
-                    count ++;
-
-                    //ensure order
-                    data[index] = {
-                        category: category,
-                        bookmarks: bookmarks
-                    }
-
-                    if(count == total){
-                        callback(data);
-                    }
-
-                });
-
-        }.bind(this));
-}
-
-bookmarkSchema.statics.getLatest = function getLatest(count, callback){
-    this.find()
+    categories.forEach(function (category, index) {
+        
+        this
+        .find({
+            'categories': category
+        })
         .sort({
             'created_at': -1
         })
-        .limit(count)
-        .exec(function(err, bookmarks){
-            if (err) {
-                console.log('err ' + err )
+        .limit(5)
+        .exec(function (err, bookmarks) {
+            count++;
+
+            //ensure order
+            data[index] = {
+                category: category,
+                bookmarks: bookmarks
             }
-            callback(bookmarks);
+
+            if (count == total) {
+                callback(data);
+            }
+
         });
+
+    }.bind(this));
+}
+
+bookmarkSchema.statics.getLatest = function getLatest (count, callback) {
+    this
+    .find()
+    .sort({
+        'created_at': -1
+    })
+    .limit(count)
+    .exec(function (err, bookmarks) {
+        if (err) {
+            console.log('err ' + err );
+        }
+        callback(bookmarks);
+    });
 }
 
 /*
     HOOKS
 */
 
-bookmarkSchema.pre('save', function(next){
+bookmarkSchema.pre('save', function (next) {
 
     var self = this,
         errors;
@@ -181,16 +162,14 @@ bookmarkSchema.pre('save', function(next){
     if (!utils.validatePresenceOf(this.url)) {
         errors = errors || new ValidationError(this);
         errors.errors.url = {
-            path : 'url',
+            path: 'url',
             type: 'You must enter an url',
-            value : this.url
+            value: this.url
         }
     }
 
-    if(errors){
-
+    if (errors) {
         next(errors)
-
     } else {
 
         var book_url = url.parse(this.url),
@@ -210,46 +189,46 @@ bookmarkSchema.pre('save', function(next){
                 var titleReg = /<title>(.*?)<\/title>/,
                     title = data.match(titleReg);
 
-                    self.title = (title && title.length) ? title[1] : self.url;
-                    
-                    //@todo
-                    //create screenshot
-                    phantom.create(function(ph){
-                        ph.createPage(function(page){
-                            page.set('viewportSize', {width: 1280, height: 800});
-                            page.set('clipRect', {top: 0, left: 0, width: 1280, height: 800});
+                self.title = (title && title.length) ? title[1] : self.url;
+                
+                //@todo
+                //create screenshot
+                phantom.create(function (ph) {
+                    ph.createPage(function (page) {
 
-                            page.open(self.url, function(){
+                        page.set('viewportSize', { width: 1280, height: 800 });
+                        page.set('clipRect', { top: 0, left: 0, width: 1280, height: 800 });
+
+                        page.open(self.url, function () {
+                            
+                            var filename = self._id + '.png',
+                                img = path.join(__dirname + '/../' + UPLOADFOLDER, filename);
+
+                            setTimeout(function () {
+                                page.render( UPLOADFOLDER + filename);
+                                ph.exit();
                                 
-                                var filename = self._id+'.png',
-                                    img = path.join(__dirname + '/../' + UPLOADFOLDER, filename);
+                                self.cover = filename;
 
-                                setTimeout(function(){
-                                    page.render( UPLOADFOLDER + filename);
-                                    ph.exit();
-                                    self.cover = filename;
-
-                                    setTimeout(function(){
-                                        //timeout for draw the preview
-
-                                        //resize image
-                                        //convert site.png -resize 640x400 site.png
-                                        exec('convert ' + img + ' -resize 640x400 ' + img, function (error, stdout, stderr) {
-                                            
-                                            if (error !== null) {
-                                              console.log('exec error: ' + error);
-                                            }
-                                            
-                                            next();    
-                                            
-                                        });
-
-                                    }, 900);
-                                }, 1000);
-                                
-                            })
-                        });
+                                setTimeout(function () {
+                                    //timeout for draw the preview
+                                    //resize image
+                                    //convert site.png -resize 640x400 site.png
+                                    exec('convert ' + img + ' -resize 640x400 ' + img, function (error, stdout, stderr) {
+                                        
+                                        if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                        }
+                                        
+                                        next();    
+                                        
+                                    });
+                                }, 900);
+                            }, 1000);
+                            
+                        })
                     });
+                });
             });
         });
 
@@ -264,17 +243,17 @@ bookmarkSchema.pre('save', function(next){
 
 });
 
-bookmarkSchema.post('remove', function(bookmark) {
+bookmarkSchema.post('remove', function (bookmark) {
     fs.unlink('public/uploads/' + bookmark.cover, function (err) {
-      if (err) {
-        console.log(err);
-      }
+        if (err) {
+            console.log(err);
+        }
     });
 });
 
 var Bookmark = mongoose.model('Bookmark', bookmarkSchema);
 
-Bookmark.ensureIndexes(function(err){
+Bookmark.ensureIndexes(function (err) {
     if (err) {
         console.log('err ' + err);
     }
