@@ -21,7 +21,6 @@ Configure it
 ---------------------
 Add the config.js file
 ```
-cd bookmarks
 touch config.js
 ```
 
