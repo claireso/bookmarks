@@ -64,8 +64,8 @@ After the configuration of your application and starting your mongo server, you 
 ```
 node install.js development
 ```
-Replace 'development' by 'production' if your environment is production.
-The shell will asks you an email and a password.
+Replace 'development' by 'production' if you are in the production environment.
+You must enter an email and a password.
 
 Then, you can start your application : 
 ```
