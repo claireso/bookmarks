@@ -80,5 +80,5 @@ npm start
 Roadmap
 ---------------------
 * Adding mobile compatibility
-* Adding pagination to the lists
+* Adding a pagination for the lists
 
