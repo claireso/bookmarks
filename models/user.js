@@ -70,7 +70,9 @@ userSchema
 .set(function (passwordConfirm) {
     this._passwordConfirm = passwordConfirm;
 })
-.get(function () { return this._passwordConfirm; });
+.get(function () { 
+    return this._passwordConfirm; 
+});
 
 userSchema
 .virtual('password')
@@ -79,7 +81,9 @@ userSchema
     this.salt = this.makeSalt();
     this.hashed_password = this.encryptPassword(password);
 })
-.get(function () { return this._password; });
+.get(function () { 
+    return this._password; 
+});
 
 userSchema.pre('save', function (next) {
     var self = this,

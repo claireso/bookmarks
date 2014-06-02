@@ -69,10 +69,8 @@ router.get('/:id/edit', isLogged, getCategories, function (req, res) {
 /*PUT edit form*/
 router.put('/:id/edit', isLogged, getCategories, function (req, res) {
     
-    var data = Bookmark.prepareData(req);
-
-    Bookmark.findByIdAndUpdate(req.params.id, data, function (err, bookmark) {
-        var st = {
+    var data = Bookmark.prepareData(req),
+        st = {
             success: {
                 msg: 'Your bookmark has been updated',
                 type: 'success'
@@ -81,8 +79,9 @@ router.put('/:id/edit', isLogged, getCategories, function (req, res) {
                 msg: 'An error has occured',
                 type: 'error'
             }
-        }
+        };
 
+    Bookmark.findByIdAndUpdate(req.params.id, data, function (err, bookmark) {
         req.session.status = (err) ?  st.error : st.success;
         res.redirect(req.get('referer'));
     });
