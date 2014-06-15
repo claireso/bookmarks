@@ -1,6 +1,6 @@
 Bookmarks
 ====================
-Bookmarks is a self hosted application to store your bookmarks.
+Bookmarks is a self hostable application to store websites.
 It is build with Express 4 and MongoDB. 
 PhantomJs is used to take screen capture of your bookmarks. You need to install it on your server.
 This application is still in beta.
