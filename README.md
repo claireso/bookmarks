@@ -1,7 +1,7 @@
 Bookmarks
 ====================
 Bookmarks is a self hostable application to store websites.
-It is build with Express 4 and MongoDB. 
+It is build with Express 4 and Mongoose. 
 PhantomJs is used to take screen capture of your bookmarks. You need to install it on your server.
 This application is still in beta.
 
@@ -81,4 +81,11 @@ Roadmap
 ---------------------
 * Adding mobile compatibility
 * Adding a pagination for the lists
+
+Built with
+---------------------
+* [Express](http://expressjs.com/)
+* [Mongoose](http://mongoosejs.com/)
+* [PhamtomJs](http://phantomjs.org/)
+* [Nodemailer](https://github.com/andris9/nodemailer)
 
