@@ -65,7 +65,7 @@ module.exports = config;
 
 Create your account
 ---------------------
-After the configuration of your application and starting your mongo server, you need to create your account. For this enter this command line:
+After the configuration of your application and starting your Mongodb server, you need to create your account. For this enter this command line:
 ```
 node install.js development
 ```
