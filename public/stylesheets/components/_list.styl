@@ -26,8 +26,6 @@
 
 
 .list--tags
-    
-    
     li
         display: inline-block
 
@@ -35,14 +33,23 @@
             margin: 0 0 0 rem(5px)
 
 .list--filters 
-    padding: rem(10px)
-    margin: 0 0 rem(10px)
+    margin: 0 0 rem(50px)
     text-transform: capitalize
 
+    li + li 
+        border-top: 1px solid $secondary-color
+
     a
-        display: inline-block
-        padding:rem(2px) 0
+        padding: rem(10px) rem(25px) rem(13px)
+        display: block
+        color: $color-nav
+
+        &:hover,
+        &:focus
+            color:$color-white
 
     .is-active
         a
-            color: inherit
+            background: $color-bg-nav-active
+            color: $color-white
+            box-shadow: inset 2px 0 0 0 $color-primary

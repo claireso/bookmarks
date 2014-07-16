@@ -22,8 +22,8 @@ html
                   a(href="/category/#{category}") #{category}
 
           -if (typeof(user) == 'undefined')
-            a.btn.btn--l(href="/logout", class="logout") Sign out
+            a.btn.btn--secondary.btn--l(href="/logout", class="logout") Sign out
 
 
-      div.app__content
+      div.app__main
         block content

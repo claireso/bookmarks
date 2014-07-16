@@ -62,7 +62,7 @@ router.get('/:id/edit', isLogged, getCategories, function (req, res) {
             data.status = st;
         }
         
-        res.render('bookmark/form/edit', data);
+        res.render('bookmark/edit', data);
     });
 });
 

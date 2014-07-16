@@ -3,13 +3,14 @@ extends ../layout
 block content
 
   include ../toolbar/toolbar
-    
-  h1.heading-1= title
 
-  -if (bookmarks.length)
-    ul.list.list--large
-      - each bookmark in bookmarks
-        li.media
-          include _item
+  div.app__content
+    h1.heading-1= title
+
+    -if (bookmarks.length)
+      ul.list.list--large
+        - each bookmark in bookmarks
+          li.media
+            include _item
 
           

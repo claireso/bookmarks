@@ -1,45 +1,41 @@
-extends ../../layout
+form(method='POST', action='/bookmark/#{bookmark._id}/edit', class='form form--bookmark')
+    h2.heading-1 Edit a bookmark
 
-block content
-  
-  form(method='POST', action='/bookmark/#{bookmark._id}/edit', class='form form--bookmark')
-      h2.heading-1 Edit a bookmark
+    -if (typeof(status) != 'undefined')
+      -if (status.type == 'error')
+        p.status.status--error= status.msg
+      - else
+        p.status.status--success= status.msg
 
-      -if (typeof(status) != 'undefined')
-        -if (status.type == 'error')
-          p.status.status--error= status.msg
-        - else
-          p.status.status--success= status.msg
+    div.form__item
+      img.picture(src="#{bookmark.coverpath}#{bookmark.cover}", width="200")
 
-      div.form__item
-        img.picture(src="#{bookmark.coverpath}#{bookmark.cover}", width="200")
+    div.form__item
+      label(for="title") Title
+      input(id="title", value="#{bookmark.title}", name="title", type="text", class='form__field--text')
 
-      div.form__item
-        label(for="title") Title
-        input(id="title", value="#{bookmark.title}", name="title", type="text", class='form__field--text')
+    div.form__item
+      label(for="note") Note
+      textarea(id="note", name="note", class='form__field--text') #{bookmark.note}
 
-      div.form__item
-        label(for="note") Note
-        textarea(id="note", name="note", class='form__field--text') #{bookmark.note}
+    div.form__item
+      fieldset
+        legend.label Categories
+        - each category in categories
+          div.form__field--checkbox
+            -if (bookmark.categories.indexOf(category) > -1)
+              input(id="cat-#{category}", type="checkbox", name="categories[]", value=category, checked="checked") 
+            - else
+              input(id="cat-#{category}", type="checkbox", name="categories[]", value=category) 
+            
+          label(for="cat-#{category}")= category
 
-      div.form__item
-        fieldset
-          legend.label Categories
-          - each category in categories
-            div.form__field--checkbox
-              -if (bookmark.categories.indexOf(category) > -1)
-                input(id="cat-#{category}", type="checkbox", name="categories[]", value=category, checked="checked") 
-              - else
-                input(id="cat-#{category}", type="checkbox", name="categories[]", value=category) 
-              
-            label(for="cat-#{category}")= category
+        input(type="text", name="newcategory", placeholder="new category", class='form__field--text')
 
-          input(type="text", name="newcategory", placeholder="new category", class='form__field--text')
+    div.form__item
+      label(for="tags") Tags
+      input(id="tags", type="text", name="tags", placeholder="tags separate by a comma", value="#{bookmark.tags}", class='form__field--text')
 
-      div.form__item
-        label(for="tags") Tags
-        input(id="tags", type="text", name="tags", placeholder="tags separate by a comma", value="#{bookmark.tags}", class='form__field--text')
-
-      div.form__submit.align-right
-        input(type="hidden", name="_method", value="PUT")
-        input(type="submit", value='Update', class="btn")
+    div.form__submit.align-right
+      input(type="hidden", name="_method", value="PUT")
+      input(type="submit", value='Update', class="btn")

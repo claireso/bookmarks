@@ -4,15 +4,17 @@ block content
 
   include toolbar/toolbar
 
-  -if (typeof(bookmarks) != 'undefined' && bookmarks.length)
-    h1.heading-1 Latest
-    ul.list.list--large
-      -each bookmark in bookmarks
-        li.media
-          include bookmark/_item
+  div.app__content
 
-  - else
-    section
-      h1.heading-1 Welcome on Bookmarks!
-      p You did not add bookmark
-      a.btn(href="/bookmark/new") Add a bookmark
+    -if (typeof(bookmarks) != 'undefined' && bookmarks.length)
+      h1.heading-1 Latest
+      ul.list.list--large
+        -each bookmark in bookmarks
+          li.media
+            include bookmark/_item
+
+    - else
+      section
+        h1.heading-1 Welcome on Bookmarks!
+        p You did not add bookmark
+        a.btn(href="/bookmark/new") Add a bookmark
