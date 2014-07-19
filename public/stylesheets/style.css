@@ -65,18 +65,21 @@ section + section {
   font-size: 1.3125rem;
   font-weight: 700;
   padding: 0.3125rem;
-  margin: 0 0 0.625rem;
+  margin: 0 0 1.875rem;
   text-align: center;
+  background: #50a8e2;
+  height: 5.3125rem;
+  line-height: 3.5;
+  color: #fff;
 }
 .logo img {
-  opacity: 0;
+  vertical-align: middle;
 }
 .logo:hover,
 .logo:focus {
   color: #1a1a1a;
 }
 .app__sidebar {
-  padding: 0.625rem 0;
   position: fixed;
   left: 0;
   top: 0;

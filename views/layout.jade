@@ -5,13 +5,14 @@ html
     meta(name='robots', content='noindex,nofollow')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans:400,700')
+    link(rel='shortcut icon' href='images/favicon.ico?v=2')
   body
 
     main.app
       -if (typeof(categories) !== 'undefined')
         div.app__sidebar
-          a.logo(href="/") 
-            img(src="/images/bookmarks.svg", alt="Bookmarks", class="logo-svg", width="50")
+          a.logo(href="/")
+            img(src="/images/bookmarks3.svg", alt="Bookmarks", class="logo-svg", width="50")
           ul.list--filters
             - each category in categories
               - if (category === activeCategory )
