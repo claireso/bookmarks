@@ -151,6 +151,35 @@ bookmarkSchema.statics.getLatest = function getLatest (count, callback) {
     });
 }
 
+bookmarkSchema.statics.paginate = function paginate(params, callback) {
+    var self = this,
+        page = parseInt(params.page,10) || 1,
+        filters = params.filters || {},
+        limit = 5;
+
+    callback = callback || function() {}
+
+    this
+    .find(filters)
+    .count()
+    .exec(function(err, count) {
+        if (err) {
+            console.log(err);
+        }
+
+        var query = self.find(filters).skip((page - 1) * limit).limit(limit);
+
+        if (params.sort) {
+            query.sort(params.sort);
+        }
+
+        query.exec(function(err, bookmarks){
+            callback(err, bookmarks, {page: page, total: Math.ceil(count / limit)});
+        });
+    })
+
+};
+
 /*
     HOOKS
 */

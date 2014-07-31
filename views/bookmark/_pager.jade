@@ -1,0 +1,9 @@
+div.pager.align-right
+    
+    -if(pager.page > 1)
+        a.pager__item.pager__item--prev(href="#{pager.baseUrl}?page=#{pager.page - 1}") &lsaquo;
+
+    span #{pager.page} / #{pager.total}
+
+    -if(pager.page < pager.total)
+        a.pager__item.pager__item--next(href="#{pager.baseUrl}?page=#{pager.page + 1}") &rsaquo;
