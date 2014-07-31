@@ -1,17 +1,18 @@
 .pager
     margin: rem(20px) 0 0
     padding: rem(20px) 0 0
+    text-align center
     border-top: 1px solid $color-border-light
     span
         font-size:rem(14px)
 
 .pager__item
     display: inline-block
-    padding:2px 10px 5px;
+    padding:10px 20px 15px;
     line-height: 1;
-    background: $color-primary
-    color: $color-white
-    font-size: rem(20px)
+    background: $color-bg-toolbar
+    color: $color-font
+    font-size: rem(25px)
     vertical-align: middle
     border-radius: 2px
     position: relative
@@ -19,8 +20,9 @@
 
     &:hover,
     &:focus
-        background:$color-primary-hover;
-        color: $color-white
+        // background:$color-primary-hover;
+        background:darken($color-bg-toolbar, 5);
+        // color: $color-white
 
 .pager__item--next
     margin-left: 15px
