@@ -155,7 +155,7 @@ bookmarkSchema.statics.paginate = function paginate(params, callback) {
     var self = this,
         page = parseInt(params.page,10) || 1,
         filters = params.filters || {},
-        limit = 5;
+        limit = 10;
 
     callback = callback || function() {}
 
