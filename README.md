@@ -80,7 +80,7 @@ npm start
 Roadmap
 ---------------------
 * Adding mobile compatibility
-* ~~Adding a pagination for the lists~~
+* ~~Adding a pagination for the lists~~ (done)
 
 Built with
 ---------------------
