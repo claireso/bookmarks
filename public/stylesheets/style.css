@@ -258,10 +258,8 @@ fieldset .form__field--checkbox {
 }
 .list--filters {
   margin: 0 0 3.125rem;
+  font-size: 0.875rem;
   text-transform: capitalize;
-}
-.list--filters li + li {
-  border-top: 1px solid #3a3e48;
 }
 .list--filters a {
   padding: 0.625rem 1.5625rem 0.8125rem;
