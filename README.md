@@ -5,7 +5,7 @@ It is built with Express 4 and Mongoose.
 PhantomJs is used to take screen capture of your bookmarks. You need to install it on your server.
 This application is still in beta.
 
-![alt tag](https://github.com/claireso/bookmarks/raw/master/doc/screens/1.2.jpg)
+![alt tag](https://github.com/claireso/bookmarks/raw/master/doc/screens/1.3.jpg)
 
 ![alt tag](https://github.com/claireso/bookmarks/raw/master/doc/screens/2.3.jpg)
 
