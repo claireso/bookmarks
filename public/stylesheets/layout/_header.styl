@@ -24,7 +24,8 @@
     padding: rem(5px)
     margin: 0 0 rem(30px)
     text-align: center
-    background: $color-primary
+    // background: $color-primary
+    background $secondary-color
     height: rem(85px)
     line-height: 3.5
     color: $color-white
@@ -34,4 +35,5 @@
 
     &:hover,
     &:focus
-        color: darken($color-font, 10)
+        color $color-white
+        background lighten($secondary-color, 5)

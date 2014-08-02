@@ -67,7 +67,7 @@ section + section {
   padding: 0.3125rem;
   margin: 0 0 1.875rem;
   text-align: center;
-  background: #50a8e2;
+  background: #3a3e48;
   height: 5.3125rem;
   line-height: 3.5;
   color: #fff;
@@ -77,7 +77,8 @@ section + section {
 }
 .logo:hover,
 .logo:focus {
-  color: #1a1a1a;
+  color: #fff;
+  background: #454a56;
 }
 .app {
   display: table;
@@ -321,7 +322,7 @@ fieldset .form__field--checkbox {
 }
 .pager {
   margin: 1.25rem 0 0;
-  padding: 1.25rem 0 0;
+  padding: 2.5rem 0 0;
   text-align: center;
   border-top: 1px solid #d8dee3;
 }
@@ -330,11 +331,11 @@ fieldset .form__field--checkbox {
 }
 .pager__item {
   display: inline-block;
-  padding: 10px 20px 15px;
+  padding: 3px 10px 5px;
   line-height: 1;
   background: #e8e8e8;
   color: #333;
-  font-size: 1.5625rem;
+  font-size: 1.25rem;
   vertical-align: middle;
   border-radius: 2px;
   position: relative;
