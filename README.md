@@ -22,6 +22,16 @@ cd bookmarks
 npm install
 ```
 
+Build scripts
+---------------------
+Gulp is used in the project to build scripts
+
+```
+cd gulp
+npm install
+gulp build
+```
+
 Configure it
 ---------------------
 Add the config.js file
@@ -62,15 +72,6 @@ module.exports = config;
 * **db.development.uri** : the uri of your database in production environment
 * **mail** : nodemailer is used to send mail if you forgot your password account. You need to add a SMTP configuration. Check the documentation [here](https://github.com/andris9/Nodemailer).    
 
-Build scripts
----------------------
-Gulp is used in the project to build scripts
-
-```
-cd gulp
-npm install
-gulp build
-```
 
 Create your account
 ---------------------
