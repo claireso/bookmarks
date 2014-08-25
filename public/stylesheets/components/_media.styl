@@ -1,27 +1,30 @@
 .media
-    display:table
-    width:100%
-    table-layout:fixed
+    // display:table
+    // width:100%
+    // table-layout:fixed
 
-    > div
-        display:table-cell
-        vertical-align:top
+    // > div
+    //     display:table-cell
+    //     vertical-align:top
 
     .list--tags
         margin:rem(10px) 0 0
 
 .media__picture
-    padding:0 rem(15px) 0 0
-    width:rem(165px)
+    padding:0 0 rem(5px)
+    // width:rem(165px)
 
     a
         display: block
+
+    .picture
+        width 100%
 
     a:hover
         opacity: .9
 
 .media__text
-    padding: rem(5px) rem(100px) rem(15px) 0
+    padding: rem(5px) 0 0 0
 
 .media__note
     font-size: rem(14px)
@@ -42,3 +45,20 @@
 
         &:hover
             color: inherit
+
+@media screen and (min-width: $breakpoint)
+    .media
+        display:table
+        width:100%
+        table-layout:fixed
+
+        > div
+            display:table-cell
+            vertical-align:top
+
+    .media__picture
+        padding:0 rem(15px) 0 0
+        width:rem(165px)
+
+    .media__text
+        padding: rem(5px) rem(100px) rem(15px) 0

@@ -28,38 +28,15 @@ a
     &:focus
         color: $color-primary-hover
 
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
-}
-
-.clearfix:after {
-    clear: both;
-}
-
-.align-right
-    text-align: right
-
 ul
     list-style-type:none
     margin:0
     padding:0
 
-.picture
-    display: block
 
 section
     + section
         margin: rem(60px) 0 0
-        //padding: rem(30px) 0 0
-        //border-top:1px solid $color-border-light
-
-.pull-right
-    float: right
-
-.pull-left
-    float: left
 
 /*
     Specifics
@@ -67,7 +44,7 @@ section
 #tpl-connect
     background $color-bg-toolbar
 
-
+@import 'helpers/*';
 @import 'layout/_header';
 @import 'layout/_app-grid';
 @import 'components/*';

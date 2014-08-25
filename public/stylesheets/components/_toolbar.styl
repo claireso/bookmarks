@@ -4,3 +4,14 @@
 
     .form--search
         width: rem(200)
+
+@media screen and (max-width: $breakpoint)
+    .toolbar
+        text-align center;
+
+        .pull-left,
+        .pull-right
+            float none
+
+        .form--search
+            margin: 0 auto rem(20px)

@@ -13,7 +13,7 @@ html
           a.logo(href="/") Bookmarks
             //- img(src="/images/bookmarks3.svg", alt="Bookmarks", class="logo-svg", width="50")
             
-          ul.list--filters
+          ul.list--filters.mt-hide.js-filters
             - each category in categories
               - if (category === activeCategory )
                 li.is-active
@@ -28,3 +28,5 @@ html
 
       div.app__main
         block content
+
+    script(src='/javascripts/app.js')

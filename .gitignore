@@ -6,6 +6,7 @@ config.js
 
 #uploads
 public/uploads/*
+public/javascripts/*
 
 #data
 data/*

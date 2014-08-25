@@ -1,19 +1,12 @@
-.app
-    display table
-    table-layout fixed
-    width 100%
-    height 100%
-
 .app__sidebar
-    display table-cell
-    vertical-align top
-    width: rem(230px)
     background:$color-bg-sidebar
+    padding 0 0 rem(30px)
 
-.app__main
-    display table-cell
-    vertical-align top
-    margin:0 0 0 rem(230px)
+    .filters
+        display block
+        width:50%;
+        font-size: rem(16px)
+        margin 0 auto rem(20px)
 
 .app__content
     padding: rem(25px)
@@ -22,3 +15,20 @@ iframe
     display none    
 
 
+@media screen and (min-width: $breakpoint)
+    .app
+        display table
+        table-layout fixed
+        width 100%
+        height 100%
+
+    .app__sidebar
+        display table-cell
+        vertical-align top
+        width rem(230px)
+        padding 0
+
+    .app__main
+        display table-cell
+        vertical-align top
+        margin:0 0 0 rem(230px)

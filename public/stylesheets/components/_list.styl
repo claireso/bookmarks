@@ -14,15 +14,8 @@
             padding-top:rem(10px)
         }
 
-        &:hover
-            .media__actions
-                visibility: visible
-
     .media__actions
-        position: absolute
-        top: rem(10px)
-        right: rem(10px)
-        visibility: hidden
+        margin: rem(10px) 0 0
 
 
 .list--tags
@@ -54,3 +47,18 @@
             background: $color-bg-nav-active
             color: $color-white
             box-shadow: inset 2px 0 0 0 $color-primary
+
+
+@media screen and (min-width: $breakpoint)
+    .list--large
+        .media__actions
+            position: absolute
+            top: rem(10px)
+            right: rem(10px)
+            visibility: hidden
+            margin 0
+
+        > li
+            &:hover
+                .media__actions
+                    visibility: visible

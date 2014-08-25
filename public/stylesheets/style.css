@@ -23,29 +23,27 @@ a:hover,
 a:focus {
   color: #4495ca;
 }
-.clearfix:before,
-.clearfix:after {
-  content: " ";
-/* 1 */
-  display: table;
-/* 2 */
-}
-.clearfix:after {
-  clear: both;
-}
-.align-right {
-  text-align: right;
-}
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.picture {
-  display: block;
-}
 section + section {
   margin: 3.75rem 0 0;
+}
+/*
+    Specifics
+*/
+#tpl-connect {
+  background: #e8e8e8;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+.clearfix:after {
+  clear: both;
 }
 .pull-right {
   float: right;
@@ -53,11 +51,22 @@ section + section {
 .pull-left {
   float: left;
 }
-/*
-    Specifics
-*/
-#tpl-connect {
-  background: #e8e8e8;
+.picture {
+  display: block;
+}
+.align-right {
+  text-align: right;
+}
+.mt-hide {
+  display: none;
+}
+@media screen and (min-width: 790px) {
+  .mt-only {
+    display: none !important;
+  }
+  .mt-hide {
+    display: block;
+  }
 }
 .logo {
   color: #333;
@@ -80,28 +89,40 @@ section + section {
   color: #fff;
   background: #454a56;
 }
-.app {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-  height: 100%;
-}
 .app__sidebar {
-  display: table-cell;
-  vertical-align: top;
-  width: 14.375rem;
   background: #26282e;
+  padding: 0 0 1.875rem;
 }
-.app__main {
-  display: table-cell;
-  vertical-align: top;
-  margin: 0 0 0 14.375rem;
+.app__sidebar .filters {
+  display: block;
+  width: 50%;
+  font-size: 1rem;
+  margin: 0 auto 1.25rem;
 }
 .app__content {
   padding: 1.5625rem;
 }
 iframe {
   display: none;
+}
+@media screen and (min-width: 790px) {
+  .app {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  .app__sidebar {
+    display: table-cell;
+    vertical-align: top;
+    width: 14.375rem;
+    padding: 0;
+  }
+  .app__main {
+    display: table-cell;
+    vertical-align: top;
+    margin: 0 0 0 14.375rem;
+  }
 }
 .box .heading {
   font-size: 1.75rem;
@@ -229,6 +250,11 @@ fieldset .form__field--checkbox {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+@media screen and (max-width: 790px) {
+  .form--bookmark {
+    min-width: 100%;
+  }
+}
 .list--large .heading {
   display: block;
 }
@@ -242,14 +268,8 @@ fieldset .form__field--checkbox {
 .list--large > li:first-child {
   padding-top: 0.625rem;
 }
-.list--large > li:hover .media__actions {
-  visibility: visible;
-}
 .list--large .media__actions {
-  position: absolute;
-  top: 0.625rem;
-  right: 0.625rem;
-  visibility: hidden;
+  margin: 0.625rem 0 0;
 }
 .list--tags li {
   display: inline-block;
@@ -276,30 +296,35 @@ fieldset .form__field--checkbox {
   color: #fff;
   box-shadow: inset 2px 0 0 0 #50a8e2;
 }
-.media {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-.media > div {
-  display: table-cell;
-  vertical-align: top;
+@media screen and (min-width: 790px) {
+  .list--large .media__actions {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    visibility: hidden;
+    margin: 0;
+  }
+  .list--large > li:hover .media__actions {
+    visibility: visible;
+  }
 }
 .media .list--tags {
   margin: 0.625rem 0 0;
 }
 .media__picture {
-  padding: 0 0.9375rem 0 0;
-  width: 10.3125rem;
+  padding: 0 0 0.3125rem;
 }
 .media__picture a {
   display: block;
+}
+.media__picture .picture {
+  width: 100%;
 }
 .media__picture a:hover {
   opacity: 0.9;
 }
 .media__text {
-  padding: 0.3125rem 6.25rem 0.9375rem 0;
+  padding: 0.3125rem 0 0 0;
 }
 .media__note {
   font-size: 0.875rem;
@@ -319,6 +344,24 @@ fieldset .form__field--checkbox {
 }
 .media__actions a:hover {
   color: inherit;
+}
+@media screen and (min-width: 790px) {
+  .media {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  .media > div {
+    display: table-cell;
+    vertical-align: top;
+  }
+  .media__picture {
+    padding: 0 0.9375rem 0 0;
+    width: 10.3125rem;
+  }
+  .media__text {
+    padding: 0.3125rem 6.25rem 0.9375rem 0;
+  }
 }
 .pager {
   margin: 1.25rem 0 0;
@@ -357,6 +400,18 @@ fieldset .form__field--checkbox {
 }
 .toolbar .form--search {
   width: 12.5rem;
+}
+@media screen and (max-width: 790px) {
+  .toolbar {
+    text-align: center;
+  }
+  .toolbar .pull-left,
+  .toolbar .pull-right {
+    float: none;
+  }
+  .toolbar .form--search {
+    margin: 0 auto 1.25rem;
+  }
 }
 .heading-1 {
   font-size: 1.5625rem;
