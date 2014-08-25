@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    paths = require('../config.js'),
+    paths = require('../paths.js'),
     uglify = require('gulp-uglify');
 
 gulp.task('build', ['concat'], function() {

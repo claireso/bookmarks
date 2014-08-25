@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
     concat = require('gulp-concat'),
     browserify = require('browserify'),
-    paths = require('../config.js'),
+    paths = require('../paths.js'),
     source = require('vinyl-source-stream');
 
 gulp.task('browserify', ['clean'], function() {
