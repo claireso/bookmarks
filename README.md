@@ -34,7 +34,7 @@ gulp build
 
 Configure it
 ---------------------
-Add the config.js file
+Add the config.js file in the root directory
 ```
 touch config.js
 ```
