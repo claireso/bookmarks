@@ -4,7 +4,7 @@
 
 /**
  * Build the select before the list
- * @param  {[dom]} elem the dom list
+ * @param  {[dom]} list: the dom list
  */
 var buildSelect = function buildSelect(list) {
     var select = document.createElement('select'),
