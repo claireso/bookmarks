@@ -24,3 +24,48 @@
     &:hover,
     &:focus
         background: lighten($secondary-color, 5)
+
+.btn-menu
+    $h= 36px;
+    width rem(40px)
+    height rem($h)
+    border none
+    position relative
+    padding 5px
+    background none
+    outline none
+
+    span
+        transition(opacity 250ms ease-out)
+
+    &:before,
+    &:after,    
+    span
+        display block
+        border-top 4px solid $color-white
+
+    &:before,
+    &:after
+        content:''
+        position absolute
+        left 5px
+        right 5px
+        transition(all 250ms ease-out)
+
+    &:before
+        top 7px
+
+    &:after
+        bottom 7px
+
+    .is-sidebar-open &
+        span
+            opacity 0
+        
+        &:before
+            transform(translate(0, $h/4) rotate(45deg))
+
+        &:after
+            transform(translate(0, ($h/4*-1)) rotate(-45deg))
+
+

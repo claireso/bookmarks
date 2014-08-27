@@ -1,20 +1,22 @@
-// #header
-//     padding: 1em 1.5em
-//     //background: $color-white
-//     //border-bottom:1px solid $color-border
-    
-//     a:first-child
-//         //color: $color-font
-//         font-weight: 700
-//         font-size: rem(21px)
+.header
+    display block
+    background $secondary-color
+    color $color-white
+    height rem(85px)
+    padding:rem(23px);
+    position relative
 
-//     .logout
-//         float: right
-//         font-size:rem(14px)
-//         margin:rem(3px) 0 0
+    .btn-menu
+        position absolute
+        left rem(20px)
+        top 50%
+        transform(translate(0, -50%))
 
-//     .btn
-//         margin: rem(-2px) rem(10px) 0 0
+.header__title
+    margin 0
+    text-align center
+    font-size rem(25px)
+    transition(opacity 200ms ease-out)
 
 .logo
     color: $color-font

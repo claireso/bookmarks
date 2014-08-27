@@ -2,6 +2,7 @@
 @import 'functions/rem';
 @import 'mixins/*';
 
+@import 'helpers/_reset';
 
 *,
 *:after,
@@ -19,6 +20,26 @@ body
     font: $base-font 'Open Sans', sans-serif
     background: $color-bg
     color: $color-font
+    min-width 320px
+    
+.wrapper
+    height 100%
+    transition(all 400ms ease)
+
+.wrapper__inner
+    height 100%
+
+.is-sidebar-open
+
+    .wrapper
+        transform(translate(rem(230px), 0))
+        
+    .wrapper__inner
+        overflow: hidden
+
+    .header__title
+        opacity 0
+        
 
 a
     color: $color-primary

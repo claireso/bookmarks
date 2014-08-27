@@ -1,6 +1,7 @@
 .app__sidebar
     background:$color-bg-sidebar
     padding 0 0 rem(30px)
+    width rem(230px)
 
     .filters
         display block
@@ -12,8 +13,17 @@
     padding: rem(25px)
 
 iframe
-    display none    
+    display none
 
+
+@media screen and (max-width: $breakpoint - 1)
+    .app__sidebar
+        position fixed
+        left -230px
+        top 0
+        bottom 0
+        z-index 2
+        overflow-x: auto
 
 @media screen and (min-width: $breakpoint)
     .app
@@ -25,7 +35,6 @@ iframe
     .app__sidebar
         display table-cell
         vertical-align top
-        width rem(230px)
         padding 0
 
     .app__main
