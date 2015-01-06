@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ValidationError = require('mongoose/lib/error/validation'),
     utils = require('../utils/function'),
-    http = require('http'),
+    request = require('request'),
     url = require('url'),
     phantom = require('phantom'),
     fs = require('fs'),
@@ -34,7 +34,7 @@ bookmarkSchema.index({ "title": "text", "note": "text", "tags": "text" });
 /*
     VIRTUAL PATH
 */
-bookmarkSchema.virtual('coverpath').get(function () { 
+bookmarkSchema.virtual('coverpath').get(function () {
     return '/uploads/';
 });
 
@@ -78,11 +78,11 @@ bookmarkSchema.statics.prepareData = function prepareData (req) {
                 var t = utils.trim(tag);
 
                 if (utils.validatePresenceOf(t)) {
-                    data.tags[index] = t;    
+                    data.tags[index] = t;
                 } else {
                     //remove tag of the list
                     data.tags.splice(index, 1);
-                }                
+                }
             });
         }
     } else {
@@ -93,7 +93,7 @@ bookmarkSchema.statics.prepareData = function prepareData (req) {
         data.url = req.body.url;
     }
 
-    data.note = req.body.note || ''; 
+    data.note = req.body.note || '';
 
     if (utils.validatePresenceOf(req.body.title)) {
         data.title = req.body.title;
@@ -109,7 +109,7 @@ bookmarkSchema.statics.getHomeList = function getHomeList (categories, callback)
         data = [];
 
     categories.forEach(function (category, index) {
-        
+
         this
         .find({
             'categories': category
@@ -202,74 +202,56 @@ bookmarkSchema.pre('save', function (next) {
         next(errors)
     } else {
 
-        var book_url = url.parse(this.url),
-            options = {
-                host: book_url.host,
-                path: book_url.path
-            };
+        var httpRequest = request(this.url, function (error, response, body) {
+            var data = body,
+                title = data.match(titleReg);
 
-        var httpRequest = http.request(options, function (res) {
-            var data = '';
-            
-            res.on('data', function (chunk) {
-                data += chunk;
-            });
-            
-            res.on('end', function () {
-                var title = data.match(titleReg);
+            self.title = (title && title.length) ? title[1] : self.url;
 
-                self.title = (title && title.length) ? title[1] : self.url;
-                
-                //@todo
-                //create screenshot
-                phantom.create(function (ph) {
-                    ph.createPage(function (page) {
+            //@todo
+            //create screenshot
+            phantom.create(function (ph) {
+                ph.createPage(function (page) {
 
-                        page.set('viewportSize', { width: 1280, height: 800 });
-                        page.set('clipRect', { top: 0, left: 0, width: 1280, height: 800 });
+                    page.set('viewportSize', { width: 1280, height: 800 });
+                    page.set('clipRect', { top: 0, left: 0, width: 1280, height: 800 });
 
-                        page.open(self.url, function () {
-                            
-                            var filename = self._id + '.png',
-                                img = path.join(__dirname + '/../' + UPLOADFOLDER, filename);
+                    page.open(self.url, function () {
 
-                            setTimeout(function () {
-                                page.render( UPLOADFOLDER + filename);
+                        var filename = self._id + '.png',
+                            img = path.join(__dirname + '/../' + UPLOADFOLDER, filename);
+
+                        setTimeout(function () {
+
+                            page.render( UPLOADFOLDER + filename, function(){
                                 ph.exit();
-                                
                                 self.cover = filename;
 
-                                setTimeout(function () {
-                                    //timeout for draw the preview
-                                    //resize image
-                                    //convert site.png -resize 640x400 site.png
-                                    exec('convert ' + img + ' -resize 640x400 ' + img, function (error, stdout, stderr) {
-                                        
-                                        if (error !== null) {
-                                            console.log('exec error: ' + error);
-                                        }
-                                        
-                                        next();    
-                                        
-                                    });
-                                }, 900);
-                            }, 1000);
-                            
-                        })
+                                //resize image
+                                //convert site.png -resize 640x400 site.png
+                                exec('convert ' + img + ' -resize 640x400 ' + img, function (error, stdout, stderr) {
+                                    if (error !== null) {
+                                        console.log('exec error: ' + error);
+                                    }
+
+                                    next();
+                                });
+                            });
+
+                        }, 1000);
+
                     });
                 });
             });
         });
 
-        httpRequest.on('error', function (e) {
-            errors = errors || new ValidationError(this);
+        httpRequest.on('error', function (err) {
+            errors = errors || new ValidationError(err);
             errors.errors = 'error';
             next(errors);
         });
 
-        httpRequest.end();
     }
-
 });
 
 bookmarkSchema.post('remove', function (bookmark) {
