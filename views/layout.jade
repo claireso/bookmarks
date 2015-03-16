@@ -19,16 +19,15 @@ html
           -if (typeof(categories) !== 'undefined')
             div.app__sidebar
               a.logo(href="/") Bookmarks
-                //- img(src="/images/bookmarks3.svg", alt="Bookmarks", class="logo-svg", width="50")
-                
+
               ul.list--filters.js-filters
                 - each category in categories
                   - if (category === activeCategory )
                     li.is-active
-                      a(href="/category/#{category}") #{category}
-                  - else 
+                      a(href="/category/" + encodeURIComponent(category)) #{category}
+                  - else
                     li
-                      a(href="/category/#{category}") #{category}
+                      a(href="/category/" + encodeURIComponent(category)) #{category}
 
               -if (typeof(user) == 'undefined')
                 a.btn.btn--secondary.btn--l(href="/logout", class="logout") Sign out
