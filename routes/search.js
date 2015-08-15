@@ -26,7 +26,7 @@ router.get('/', isLogged, getCategories, function (req, res) {
         },
         sort: {'created_at': -1}
     }, function(err, bookmarks, pager) {
-        
+
         pager.baseUrl = url.parse(req.originalUrl).pathname;
 
         if (err) {
@@ -35,29 +35,10 @@ router.get('/', isLogged, getCategories, function (req, res) {
 
         data.bookmarks = bookmarks;
         data.pager = pager;
+        data.term = term;
 
         res.render('bookmark/list', data);
     });
-
-    // Bookmark
-    // .find({
-    //     $text: {
-    //         $search: term
-    //     }
-    // })
-    // .sort({
-    //     'created_at': -1
-    // })
-    // .exec(function (err, bookmarks) {
-    //     if (err) {
-    //         console.log('error ' + err);
-    //     }
-
-    //     data.bookmarks = bookmarks;
-
-    //     res.render('bookmark/list', data);
-
-    // });
 
 });
 

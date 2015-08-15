@@ -1,9 +1,13 @@
 div.pager
-    
+
     -if(pager.page > 1)
-        a.pager__item.pager__item--prev(href="#{pager.baseUrl}?page=#{pager.page - 1}") &laquo;
+        - var url = pager.baseUrl + '?page=' + (pager.page - 1);
+        - if (term) { url += "&term=" + term; }
+        a.pager__item.pager__item--prev(href="#{url}") &laquo;
 
     span #{pager.page} / #{pager.total}
 
     -if(pager.page < pager.total)
-        a.pager__item.pager__item--next(href="#{pager.baseUrl}?page=#{pager.page + 1}") &raquo;
+        - var url = pager.baseUrl + '?page=' + (pager.page + 1);
+        - if (term) { url += "&term=" + term; }
+        a.pager__item.pager__item--next(href="#{url}") &raquo;
